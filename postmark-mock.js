@@ -60,7 +60,9 @@ app.get("/emails", (req, res) => {
 // View individual email
 app.get("/email/:id", (req, res) => {
     const email = emails.find((e) => e.id === req.params.id);
-    if (!email) return res.status(404).send("Not found");
+    if (!email) {
+        return res.status(404).send("Not found");
+    }
 
     res.send(`
     <h2>${email.subject}</h2>
