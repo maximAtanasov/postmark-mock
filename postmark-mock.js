@@ -6,6 +6,10 @@ app.use(bodyParser.json());
 
 let emails = [];
 
+const server = app.listen(8085, () =>
+    console.log(`📨 Mock Postmark running at http://localhost:8085`)
+);
+
 // Mock endpoint that Postmark client calls
 app.post("/email", (req, res) => {
     const email = {
@@ -49,7 +53,6 @@ app.get("/", (req, res) => {
         .join("")}
         </ul>
     </body>
-
   `);
 });
 
@@ -88,8 +91,18 @@ app.post("/clear-inbox", (req, res) => {
     res.redirect("/");
 });
 
-const PORT = 8085;
-app.listen(PORT, () =>
-    console.log(`📨 Mock Postmark running at http://localhost:${PORT}`)
-);
+// Graceful shutdown on Docker stop
+const shutdown = () => {
+    console.log("Shutting down mock server...");
+    server.close(() => {
+        console.log("✅ Server stopped.");
+        process.exit(0);
+    });
+    setTimeout(() => {
+        console.warn("⚠️ Force exit");
+        process.exit(1);
+    }, 1000);
+};
 
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
