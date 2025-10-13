@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
               <b>To:</b> ${e.to} <br>
               <b>Subject:</b> ${e.subject} <br>
               <b>Message Stream:</b> ${e.messageStream} <br>
-              <a href="/email/${e.id}">View</a>
+              <a target="_blank" href="/email/${e.id}">View</a>
             </li>`)
         .join("")}
         </ul>
