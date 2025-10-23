@@ -10,17 +10,20 @@ const server = app.listen(8085, () =>
     console.log(`📨 Mock Postmark running at http://localhost:8085`)
 );
 
-// Mock endpoint that Postmark client calls
 app.post("/email", (req, res) => {
+    const body = Object.fromEntries(
+        Object.entries(req.body).map(([k, v]) => [k.toLowerCase(), v])
+    );
+
     const email = {
         id: "mock-" + Date.now(),
-        to: req.body.To,
-        from: req.body.From,
-        subject: req.body.Subject,
-        htmlBody: req.body.HtmlBody,
-        textBody: req.body.TextBody,
-        messageStream: req.body.MessageStream,
-        receivedAt: new Date()
+        to: body.to,
+        from: body.from,
+        subject: body.subject,
+        htmlBody: body.htmlbody,
+        textBody: body.textbody,
+        messageStream: body.messagestream,
+        receivedAt: new Date(),
     };
 
     emails.push(email);

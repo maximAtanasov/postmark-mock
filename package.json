@@ -1,6 +1,6 @@
 {
   "name": "postmark-mock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "postmark-mock.js",
   "scripts": {
     "start": "node postmark-mock.js",
