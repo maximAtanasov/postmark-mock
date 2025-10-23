@@ -7,3 +7,5 @@ Run with `npm run start` or as a Docker container.
 Docker image available at:
 
 `maxatanasov/postmark_mock:1.0.1`
+
+The mock runs on port `8085`.
